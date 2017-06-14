@@ -21,3 +21,17 @@ GET /api/prerender?url={http://domain.com/}
   - /phantomjs_script 通用 phatnomjs 脚本
 - /config 业务配置
 - /server.js 启动服务，加载 app 代码，处理 net 模块
+
+## 贡献代码
+
+### 环境依赖
+
+- NodeJS
+- PhantomJS 不需要单独安装，phantomjs-prebuilt 模块在 npm install 的时候，会自动处理跨平台安装
+- MySQL 用来存储业务数据
+
+### 开发流程
+
+- git clone
+- npm install
+- 开工
