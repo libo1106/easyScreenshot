@@ -1,4 +1,14 @@
 {
+  "name": "unknown_name",
+  "version": "0.1.0",
+  "keywords": [
+    "phantomjs"
+  ],
+  "author": {
+    "name": "Li Bo",
+    "email": "libo1106@foxmail.com",
+    "url": "https://www.mxgw.info/"
+  },
   "dependencies": {
     "express": "^4.15.3",
     "phantomjs-prebuilt": "^2.1.14",
