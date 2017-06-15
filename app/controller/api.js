@@ -26,7 +26,9 @@ exports.screenshot = function (req, res, next) {
     worker.stderr.pipe(process.stderr)
 
     worker.on('exit', (code) => {
+        console.info(`screenshot success!`)
         res.send(`<a href="/output/${filename}" target="_blank">截图结果</a>`)
+        console.info(`http response send`)
     })
 
     worker.on('error', (err) => {
