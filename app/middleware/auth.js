@@ -3,11 +3,19 @@
  */
 exports.jwt = function (req, res, next) {
 
-    console.info(`jwt is coding!`)
-
-    console.info(`before middleware next call`)
-
+    console.info(`jwt is coding!`);
     next();
 
-    console.info(`after middleware next call`)
-}
+};
+
+exports.deny_phantomjs = function (req, res, next) {
+
+    let userAgent = req.header('user-agent');
+
+    if (/PhantomJS/.test(userAgent)){
+        res.status(403).send('禁止 phantomjs 访问');
+    } else {
+        next();
+    }
+
+};
