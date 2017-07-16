@@ -30,6 +30,14 @@ GET /api/prerender?url={http://domain.com/}
 - PhantomJS 不需要单独安装，phantomjs-prebuilt 模块在 npm install 的时候，会自动处理跨平台安装
 - MySQL 用来存储业务数据
 
+__注意__
+
+phantomjs-prebuilt 默认没有处理字体相关的二进制文件，需要手动安装依赖包
+
+    linux 环境，需要额外安装 libfontconfig 或者 fontconfig 库
+    如 ubuntu 则执行 apt install libfontconfig1
+    OSX 和 Win 平台不需要额外处理
+
 ### 开发流程
 
 - git clone
