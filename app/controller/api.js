@@ -20,21 +20,28 @@ exports.screenshot = function (req, res, next) {
         save_path
     ]
 
+    const NS_PER_SEC = 1e9;
+    let time = process.hrtime();
+
     let worker = child_process.spawn(bin_path, args)
 
     worker.stdout.pipe(process.stdout)
     worker.stderr.pipe(process.stderr)
 
     worker.on('exit', (code) => {
+
         console.info(`screenshot success!`)
-        res.send(`<a href="/output/${filename}" target="_blank">截图结果</a>`)
-        console.info(`http response send`)
+
+        let diff = process.hrtime(time);
+        console.info(`${req.url} screenshot took ${diff[0] * NS_PER_SEC + diff[1]} nanoseconds, file at ${save_path}`)
+
     })
 
     worker.on('error', (err) => {
-        console.error(`phantomjs worker run err, err msg: ${err.message}, stack: ${err.stack}`)
-        res.status(500).send(err.message);
+        console.error(`phantomjs worker run err, err msg: ${err.message}, stack: ${err.stack}, url: ${req.url}`)
     })
+
+    res.send('正在截图中')
 
 }
 
