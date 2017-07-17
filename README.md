@@ -32,11 +32,7 @@ GET /api/prerender?url={http://domain.com/}
 
 __注意__
 
-phantomjs-prebuilt 默认没有处理字体相关的二进制文件，需要手动安装依赖包
-
-    linux 环境，需要额外安装 libfontconfig 或者 fontconfig 库
-    如 ubuntu 则执行 apt install libfontconfig1
-    OSX 和 Win 平台不需要额外处理
+phantomjs-prebuilt 没有处理字体相关问题，Linux 环境需要[手动安装中文字体](https://github.com/qq286735628/easyScreenshot/wiki/ubuntu-%E5%AE%89%E8%A3%85%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93)
 
 ### 开发流程
 
