@@ -16,6 +16,9 @@ app.use(auth.deny_phantomjs);
 // 加载存静态资源到根目录中，例如 fav.ico
 app.use(express.static('./public'));
 
+// 加载前端资源
+app.use(express.static('./dist'));
+
 // 采集 http access log
 app.use(log.access);
 
