@@ -2,6 +2,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 
@@ -24,7 +25,7 @@ module.exports = {
     module: {
         rules: [
             { test: /\.js$/, use: "babel-loader", exclude: [path.resolve(__dirname, "./node_modules")] },
-            { test: /\.less$/, use: ["style-loader", "css-loader", "less-loader"]}
+            { test: /\.less$/, use: ExtractTextPlugin.extract(["css-loader", "less-loader"])}
         ]
     },
 
@@ -32,7 +33,8 @@ module.exports = {
         new CleanWebpackPlugin(path.resolve(__dirname, "./dist")),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "./src/tpl/index.html")
-        })
+        }),
+        new ExtractTextPlugin('style.[chunkhash].css')
     ]
 
 }
