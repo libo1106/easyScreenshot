@@ -9835,16 +9835,29 @@ var Home = function (_React$Component) {
                                     { className: "row" },
                                     __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                                         "div",
-                                        { className: "col col-8" },
-                                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("input", { name: "url", type: "text", onChange: handlerChange })
-                                    ),
+                                        { className: "col col-10" },
+                                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("input", { name: "url", type: "text", onChange: handlerChange, placeholder: "https://www.google.com/" })
+                                    )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                                    "div",
+                                    { className: "row" },
                                     __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                                         "div",
-                                        { className: "col col-2" },
+                                        { className: "col col-5 col-base" },
                                         __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
                                             "button",
                                             { className: "btn", type: "submit" },
-                                            "\u622A\u56FE"
+                                            "\u5F00\u59CB\u622A\u56FE"
+                                        )
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                                        "div",
+                                        { className: "col col-5 col-advance" },
+                                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                                            "button",
+                                            { className: "btn", disabled: "disabled" },
+                                            "\u9AD8\u7EA7\u6A21\u5F0F"
                                         )
                                     )
                                 )
@@ -9852,24 +9865,12 @@ var Home = function (_React$Component) {
                         )
                     )
                 ),
-                message !== '' ? __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-                    "div",
-                    { className: "section" },
-                    __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-                        "p",
-                        null,
-                        message
-                    )
-                ) : null,
-                screenshot !== '' ? __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-                    "div",
-                    { className: "section" },
-                    __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-                        "div",
-                        { className: "inner" },
-                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("img", { className: "img-screenshot", src: screenshot, onLoad: handlerLoad, onError: handlerError })
-                    )
-                ) : null,
+                __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(Message, { msg: message }),
+                __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(Screenshot, {
+                    url: screenshot,
+                    handlerLoad: handlerLoad,
+                    handlerError: handlerError
+                }),
                 __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_footer_footer__["a" /* default */], null)
             );
         }
@@ -9920,6 +9921,46 @@ var Home = function (_React$Component) {
 
     return Home;
 }(__WEBPACK_IMPORTED_MODULE_1_react___default.a.Component);
+
+function Message(props) {
+
+    var msg = props.msg;
+
+    if (msg === '') {
+        return null;
+    }
+
+    return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+        "div",
+        { className: "section content-msg" },
+        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+            "p",
+            null,
+            msg
+        )
+    );
+}
+
+function Screenshot(props) {
+    var url = props.url,
+        handlerLoad = props.handlerLoad,
+        handlerError = props.handlerError;
+
+
+    if (url === '') {
+        return null;
+    }
+
+    return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+        "div",
+        { className: "section" },
+        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+            "div",
+            { className: "inner" },
+            __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("img", { className: "img-screenshot", src: url, onLoad: handlerLoad, onError: handlerError })
+        )
+    );
+}
 
 __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(Home, null), document.getElementById('g-container'));
 

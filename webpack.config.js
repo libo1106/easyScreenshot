@@ -34,7 +34,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "./src/tpl/index.html")
         }),
-        new ExtractTextPlugin('style.[chunkhash].css')
+        new ExtractTextPlugin('assets/style.[chunkhash].css')
     ]
 
 }

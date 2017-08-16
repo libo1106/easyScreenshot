@@ -16,11 +16,17 @@ body {
 .row .col {
   float: left;
 }
+.row .col-2 {
+  width: 20%;
+}
+.row .col-5 {
+  width: 50%;
+}
 .row .col-8 {
   width: 80%;
 }
-.row .col-2 {
-  width: 20%;
+.row .col-10 {
+  width: 100%;
 }
 .page-home {
   margin-top: 200px;
@@ -45,6 +51,18 @@ body {
 }
 .content-input button {
   height: 30px;
+  margin: 5px 10px;
+}
+.content-input .col-base {
+  text-align: right;
+}
+.content-msg {
+  background-color: #666;
+  color: #fff;
+  border-radius: 3px;
+}
+.content-msg p {
+  margin: 10px 20px;
 }
 .g-footer {
   color: #666;

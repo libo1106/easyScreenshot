@@ -41,12 +41,20 @@ class Home extends React.Component {
 
                                 <div className="row">
 
-                                    <div className="col col-8">
-                                        <input name="url" type="text" onChange={handlerChange}/>
+                                    <div className="col col-10">
+                                        <input name="url" type="text" onChange={handlerChange} placeholder="https://www.google.com/"/>
                                     </div>
 
-                                    <div className="col col-2">
-                                        <button className="btn" type="submit">截图</button>
+                                </div>
+
+                                <div className="row">
+
+                                    <div className="col col-5 col-base">
+                                        <button className="btn" type="submit">开始截图</button>
+                                    </div>
+
+                                    <div className="col col-5 col-advance">
+                                        <button className="btn" disabled="disabled">高级模式</button>
                                     </div>
 
                                 </div>
@@ -59,29 +67,13 @@ class Home extends React.Component {
 
                 </div>
 
-                { message !== '' ?
-                    (
-                        <div className="section">
-                            <p>{message}</p>
-                        </div>
-                    )
-                    : null
-                }
+                <Message msg={message}/>
 
-                { screenshot !== '' ?
-                    (
-                        <div className="section">
-
-                            <div className="inner">
-
-                                <img className="img-screenshot" src={screenshot} onLoad={handlerLoad} onError={handlerError}/>
-
-                            </div>
-
-                        </div>
-                    )
-                    : null
-                }
+                <Screenshot
+                    url={screenshot}
+                    handlerLoad={handlerLoad}
+                    handlerError={handlerError}
+                />
 
                 <Footer />
 
@@ -129,6 +121,44 @@ class Home extends React.Component {
             message: '截图失败'
         })
     }
+
+}
+
+function Message (props) {
+
+    let msg = props.msg;
+
+    if (msg === '') {
+        return null;
+    }
+
+    return (
+        <div className="section content-msg">
+            <p>{msg}</p>
+        </div>
+    )
+
+}
+
+function Screenshot (props) {
+
+    let {url, handlerLoad, handlerError} = props;
+
+    if (url === '') {
+        return null;
+    }
+
+    return (
+        <div className="section">
+
+            <div className="inner">
+
+                <img className="img-screenshot" src={url} onLoad={handlerLoad} onError={handlerError}/>
+
+            </div>
+
+        </div>
+    )
 
 }
 
