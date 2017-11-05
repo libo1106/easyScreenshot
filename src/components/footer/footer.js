@@ -11,7 +11,10 @@ class Footer extends React.Component {
 
             <div className="g-footer">
 
-                <div className="section"> CopyRight &copy; 2016 - {year}</div>
+                <div className="section">
+                    <span className="item copyright">CopyRight &copy; 2016 - {year}</span>
+                    <span className="item powerby">Engine by Puppeteer</span>
+                </div>
 
             </div>
 

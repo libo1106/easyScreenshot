@@ -14,16 +14,19 @@ class Home extends React.Component {
             screenshot: '',
             fetching: true,
             message: '',
-        }
+        };
+
+        this.handler = {
+            handlerSubmit: this._onSubmit.bind(this),
+            handlerChange: this._onChange.bind(this),
+            handlerLoad: this._onLoadImg.bind(this),
+            handlerError: this._onErrorImg.bind(this)
+        };
     }
 
     render () {
 
-        let handlerSubmit = this._onSubmit.bind(this);
-        let handlerChange = this._onChange.bind(this);
-        let handlerLoad = this._onLoadImg.bind(this);
-        let handlerError = this._onErrorImg.bind(this);
-
+        let { handlerSubmit, handlerChange, handlerLoad, handlerError } = this.handler;
         let { screenshot, message } = this.state;
 
         return (
@@ -87,6 +90,11 @@ class Home extends React.Component {
         console.log('submit!!');
 
         let {url} = this.state;
+
+        // 自动补齐 http:// 协议头
+        if (!/^https?:\/\//.test(url)) {
+            url = `http://${url}`;
+        }
 
         this.setState({
             screenshot: `/api/screenshot?url=${url}`,

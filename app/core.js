@@ -4,7 +4,6 @@
  */
 const express = require('express');
 const router = require('./router');
-
 const log = require('./middleware/log');
 const auth = require('./middleware/auth');
 

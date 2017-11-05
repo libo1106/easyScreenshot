@@ -1,18 +1,23 @@
 {
   "name": "easyScreenshot",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "keywords": [
-    "phantomjs"
+    "phantomjs",
+    "puppeteer"
   ],
   "author": {
     "name": "Li Bo",
     "email": "libo1106@foxmail.com",
     "url": "https://www.mxgw.info/"
   },
+  "scripts": {
+    "start": "node server.js & webpack -w"
+  },
   "dependencies": {
-    "express": "^4.15.3",
+    "express": "^4.15.4",
     "less": "^2.7.2",
     "phantomjs-prebuilt": "^2.1.14",
+    "puppeteer": "^0.12.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "response-time": "^2.3.2"
@@ -28,6 +33,6 @@
     "html-webpack-plugin": "^2.30.1",
     "less-loader": "^4.0.5",
     "style-loader": "^0.18.2",
-    "webpack": "^3.4.1"
+    "webpack": "^3.5.5"
   }
 }

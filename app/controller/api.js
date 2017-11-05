@@ -6,15 +6,38 @@ const child_process = require('child_process');
 const crypto = require('crypto');
 
 const phantomjs = require('phantomjs-prebuilt');
+const puppeteer = require('puppeteer');
 const bin_path = phantomjs.path;
 
 exports.screenshot = function (req, res, next) {
 
-    const TIMEOUT_SECOND = 10;
-    const TIMEOUT = 1000 * 10;
-    const NS_PER_SEC = 1e9;
+    let worker = worker_puppeteer(req.query.url);
 
-    let target_url = req.query.url;
+    worker
+        .then((filename) => {
+            res.redirect(`/output/${filename}`)
+        })
+        .catch(next)
+
+};
+
+exports.screenshot_async = function (req, res, next) {
+    res.send(`截图成功，稍后会有回调请求到目标服务器`)
+}
+
+exports.prerender = function (req, res, next) {
+    res.send('prerender is building!');
+};
+
+/**
+ * phantomjs 引擎
+ * @deprecated
+ * @param target_url
+ * @return {Promise}
+ */
+function worker_phantomjs (target_url) {
+    const TIMEOUT = 1000 * 10;
+
     let filename = `${md5(target_url)}.jpeg`;
     let save_path = path.resolve('./public/output/', filename);
 
@@ -23,8 +46,6 @@ exports.screenshot = function (req, res, next) {
         target_url,
         save_path
     ];
-
-    let time = process.hrtime();
 
     let worker = child_process.spawn(bin_path, args);
 
@@ -35,30 +56,42 @@ exports.screenshot = function (req, res, next) {
         worker.kill();
     }, TIMEOUT);
 
-    worker.on('exit', (code, signal) => {
+    return new Promise ((resolve, reject) => {
 
-        clearTimeout(timer);
+        worker.on('exit', (code, signal) => {
 
-        let diff = process.hrtime(time);
-        console.info(`worker exit, exit code: ${code}, signal: ${signal}, ${req.url} took ${diff[0] * NS_PER_SEC + diff[1]} nanoseconds, file at ${save_path}`)
+            clearTimeout(timer);
 
-        if (!signal) {
-            res.redirect(`/output/${filename}`);
-        } else {
-            res.status(500).send(`截图失败，目标网站无法在 ${TIMEOUT_SECOND} 秒内触发 onload 事件`);
-        }
+            if (!signal) {
+                resolve(filename);
+            } else {
+                reject(new Error('截图失败，目标网站没有在10秒内返回 HTML 内容'))
+            }
 
-    });
+        });
 
-    worker.on('error', (err) => {
-        console.error(`phantomjs worker run err, err msg: ${err.message}, stack: ${err.stack}, url: ${req.url}`)
-    });
+        worker.on('error', reject)
 
-};
+    })
+}
 
-exports.prerender = function (req, res, next) {
-    res.send('prerender is building!');
-};
+async function worker_puppeteer (target_url) {
+
+    // 默认超时时间
+    const TIMEOUT = 1000 * 10;
+
+    let filename = `${md5(target_url)}.jpeg`;
+    let save_path = path.resolve('./public/output/', filename);
+
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+
+    await page.goto(target_url, {timeout: TIMEOUT});
+    await page.screenshot({path: save_path});
+    await browser.close();
+
+    return filename;
+}
 
 function md5 (str) {
     let hash = crypto.createHash('md5');
