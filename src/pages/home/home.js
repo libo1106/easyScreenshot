@@ -1,10 +1,9 @@
 import './home.less';
 import React from "react";
-import ReactDom from "react-dom";
 
-import Footer from "footer/footer";
+import Footer from "components/footer/footer";
 
-class Home extends React.Component {
+export default class Home extends React.Component {
 
     constructor(props) {
         super(props);
@@ -169,5 +168,3 @@ function Screenshot (props) {
     )
 
 }
-
-ReactDom.render(<Home/>,document.getElementById('g-container'))
