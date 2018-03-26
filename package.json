@@ -14,13 +14,15 @@
     "start": "node server.js & webpack -w"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "less": "^2.7.2",
     "puppeteer": "^1.2.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "response-time": "^2.3.2",
-    "sequelize": "^4.37.2"
+    "sequelize": "^4.37.2",
+    "webpack-cli": "^2.0.13"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
