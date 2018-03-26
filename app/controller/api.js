@@ -5,9 +5,13 @@ const path = require('path');
 const child_process = require('child_process');
 const crypto = require('crypto');
 
-const phantomjs = require('phantomjs-prebuilt');
+// const phantomjs = require('phantomjs-prebuilt');
 const puppeteer = require('puppeteer');
-const bin_path = phantomjs.path;
+// const bin_path = phantomjs.path;
+
+const worker_pools = [];
+
+init();
 
 exports.screenshot = function (req, res, next) {
 
@@ -83,14 +87,19 @@ async function worker_puppeteer (target_url) {
     let filename = `${md5(target_url)}.jpeg`;
     let save_path = path.resolve('./public/output/', filename);
 
+    let worker = worker_pools[0];
+
+    await worker.goto(target_url, {timeout: TIMEOUT});
+    await worker.screenshot({path: save_path});
+
+    return filename;
+}
+
+async function init () {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    await page.goto(target_url, {timeout: TIMEOUT});
-    await page.screenshot({path: save_path});
-    await browser.close();
-
-    return filename;
+    worker_pools.push(page);
 }
 
 function md5 (str) {
